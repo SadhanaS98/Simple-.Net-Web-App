@@ -56,7 +56,7 @@ stages:
               azureSubscription: 'Azure subscription 1(fcf42066-6a53-45fc-b612-6221505878e8)'
               appType: 'webApp'
               appName: 'dotnetwebapp80'
-              package: '$(Pipeline.Workspace)/drop/**/*.zip'
+              package: '$(Build.ArtifactStagingDirectory)/drop/*.zip'
               deploymentMethod: 'auto'
 
         
