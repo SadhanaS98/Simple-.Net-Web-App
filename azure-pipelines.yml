@@ -37,13 +37,22 @@ stages:
               publishWebProjects: true
               arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
 
+          - task: ArchiveFiles@2
+            displayName: 'Create ZIP file'
+            inputs:
+              rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/drop.zip'
+              replaceExistingArchive: true
+              verbose: true
+
           - task: PublishBuildArtifacts@1
             displayName: 'Publish Artifacts'
             inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop.zip'
               ArtifactName: 'drop'
               publishLocation: 'Container'
-
   - stage: deploy
     displayName: Deploying to Azure Web App
     jobs:
