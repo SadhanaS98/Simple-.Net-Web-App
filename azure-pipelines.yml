@@ -59,6 +59,12 @@ stages:
       - job: deployJob
         displayName: Deploy Job
         steps:
+          - task: DownloadPipelineArtifact@2
+            displayName: 'Download Build Artifacts'
+            inputs:
+              buildType: 'current'
+              artifactName: 'drop'
+              targetPath: '$(Pipeline.Workspace)'
           - task: AzureWebApp@1
             displayName: 'Deploy to Azure Web App'
             inputs:
