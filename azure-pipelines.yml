@@ -1,0 +1,62 @@
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+stages:
+  - stage: build
+    displayName: Building the .NET Core Web App
+    jobs:
+      - job: buildJob
+        displayName: Build Job
+        steps:
+          - task: UseDotNet@2
+            inputs:
+              version: '8.x'  # Specify your .NET version
+              includePreviewVersions: true
+
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet build'
+            inputs:
+              command: 'build'
+              projects: '**/*.csproj'  # Adjust the path to your .csproj files
+              arguments: '--configuration Release'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet test'
+            inputs:
+              command: 'test'
+              arguments: '--configuration Release --collect:"XPlat Code Coverage"'
+              publishTestResults: true
+
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet publish'
+            inputs:
+              command: 'publish'
+              publishWebProjects: true
+              arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Artifacts'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+  - stage: deploy
+    displayName: Deploying to Azure Web App
+    jobs:
+      - job: deployJob
+        displayName: Deploy Job
+        steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy to Azure Web App'
+            inputs:
+              azureSubscription: 'Azure subscription 1(fcf42066-6a53-45fc-b612-6221505878e8)'
+              appType: 'webApp'
+              appName: 'dotnetwebapp80'
+              package: '$(Pipeline.Workspace)/drop/**/*.zip'
+              deploymentMethod: 'auto'
+
+        
