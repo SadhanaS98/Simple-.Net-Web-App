@@ -42,10 +42,10 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'Create ZIP file'
             inputs:
-              rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'  # Folder where files are published
-              includeRootFolder: false
+              rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+              includeRootFolder: true
               archiveType: 'zip'
-              archiveFile: '$(Build.ArtifactStagingDirectory)/drop/drop.zip'  # Make sure the ZIP is created in the right path
+              archiveFile: '$(Build.ArtifactStagingDirectory)/drop/drop.zip'
               replaceExistingArchive: true
               verbose: true
           - task: PowerShell@2
