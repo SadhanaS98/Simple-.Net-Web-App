@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>webapp_.net</RootNamespace>
+    <AssemblyName>dotnetwepapp</AssemblyName>  
   </PropertyGroup>
 
 </Project>

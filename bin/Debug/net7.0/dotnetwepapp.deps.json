@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "webapp-.net/1.0.0": {
+      "dotnetwepapp/1.0.0": {
         "runtime": {
-          "webapp-.net.dll": {}
+          "dotnetwepapp.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "webapp-.net/1.0.0": {
+    "dotnetwepapp/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
