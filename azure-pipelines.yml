@@ -54,11 +54,11 @@ stages:
                 Write-Host "Listing files in: $(Build.ArtifactStagingDirectory)"
                 Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)" -Recurse
               pwsh: true
-              
+
           - task: PublishBuildArtifacts@1
             displayName: 'Publish Artifacts'
             inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop/*.zip'
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop/drop.zip'
               ArtifactName: 'drop'
               publishLocation: 'Container'
   - stage: deploy
