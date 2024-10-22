@@ -43,7 +43,7 @@ stages:
             displayName: 'Create ZIP file'
             inputs:
               rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
-              includeRootFolder: true
+              includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/drop/drop.zip'
               replaceExistingArchive: true
