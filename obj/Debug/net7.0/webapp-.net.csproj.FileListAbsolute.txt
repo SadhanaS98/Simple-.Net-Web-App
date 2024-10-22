@@ -60,3 +60,4 @@ D:\Phase2_study_2024\Projects\Simple .Net Web App\obj\Debug\net7.0\dotnetwepapp.
 D:\Phase2_study_2024\Projects\Simple .Net Web App\obj\Debug\net7.0\refint\dotnetwepapp.dll
 D:\Phase2_study_2024\Projects\Simple .Net Web App\obj\Debug\net7.0\dotnetwepapp.pdb
 D:\Phase2_study_2024\Projects\Simple .Net Web App\obj\Debug\net7.0\ref\dotnetwepapp.dll
+D:\Phase2_study_2024\Projects\Simple .Net Web App\bin\Debug\net7.0\web.config
