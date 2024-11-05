@@ -13,14 +13,14 @@ stages:
         steps:
           - task: UseDotNet@2
             inputs:
-              version: '8.x'  # Specify your .NET version
+              version: '8.x'
               includePreviewVersions: true
 
           - task: DotNetCoreCLI@2
             displayName: 'dotnet build'
             inputs:
               command: 'build'
-              projects: '**/*.csproj'  # Adjust the path to your .csproj files
+              projects: '**/*.csproj'
               arguments: '--configuration Release'
 
           - task: DotNetCoreCLI@2
@@ -33,35 +33,26 @@ stages:
           - task: DotNetCoreCLI@2
             displayName: 'dotnet publish'
             inputs:
-              azureSubscription: 'Azure subscription 1(fcf42066-6a53-45fc-b612-6221505878e8)'
               command: 'publish'
               publishWebProjects: true
               arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
 
-        
           - task: ArchiveFiles@2
             displayName: 'Create ZIP file'
             inputs:
               rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
               includeRootFolder: false
               archiveType: 'zip'
-              archiveFile: '$(Build.ArtifactStagingDirectory)/drop/drop.zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/drop.zip'
               replaceExistingArchive: true
-              verbose: true
-          - task: PowerShell@2
-            inputs:
-              targetType: 'inline'
-              script: |
-                Write-Host "Listing files in: $(Build.ArtifactStagingDirectory)"
-                Get-ChildItem -Path "$(Build.ArtifactStagingDirectory)" -Recurse
-              pwsh: true
 
           - task: PublishBuildArtifacts@1
             displayName: 'Publish Artifacts'
             inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop/'
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop.zip'
               ArtifactName: 'drop'
               publishLocation: 'Container'
+
   - stage: deploy
     displayName: Deploying to Azure Web App
     jobs:
@@ -73,14 +64,13 @@ stages:
             inputs:
               buildType: 'current'
               artifactName: 'drop'
-              targetPath: '$(Pipeline.Workspace)/drop'
+              targetPath: '$(Pipeline.Workspace)'
+
           - task: AzureWebApp@1
             displayName: 'Deploy to Azure Web App'
             inputs:
               azureSubscription: 'Azure subscription 1(fcf42066-6a53-45fc-b612-6221505878e8)'
               appType: 'webApp'
               appName: 'webapp190'
-              package: '$(Pipeline.Workspace)/drop/*.zip'
+              package: '$(Pipeline.Workspace)/drop.zip'
               deploymentMethod: 'auto'
-
-        
