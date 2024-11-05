@@ -41,7 +41,7 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'Create ZIP file'
             inputs:
-              rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+              rootFolderOrFile: '$(Build.ArtifactStagingDirectory)drop.zip'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/drop.zip'
