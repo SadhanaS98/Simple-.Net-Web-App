@@ -45,7 +45,7 @@ stages:
               rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
               includeRootFolder: false
               archiveType: 'zip'
-              archiveFile: '$(Build.ArtifactStagingDirectory)/drop/drop.zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/drop/'
               replaceExistingArchive: true
               verbose: true
           - task: PowerShell@2
@@ -59,7 +59,7 @@ stages:
           - task: PublishBuildArtifacts@1
             displayName: 'Publish Artifacts'
             inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop/drop.zip'
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/drop/'
               ArtifactName: 'drop'
               publishLocation: 'Container'
   - stage: deploy
@@ -80,7 +80,7 @@ stages:
               azureSubscription: 'Azure subscription 1(fcf42066-6a53-45fc-b612-6221505878e8)'
               appType: 'webApp'
               appName: 'webapp190'
-              package: '$(Pipeline.Workspace)/drop/drop.zip/*.zip'
+              package: '$(Pipeline.Workspace)/drop/*.zip'
               deploymentMethod: 'auto'
 
         
