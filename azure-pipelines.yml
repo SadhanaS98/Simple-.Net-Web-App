@@ -79,7 +79,7 @@ stages:
             inputs:
               azureSubscription: 'Azure subscription 1(fcf42066-6a53-45fc-b612-6221505878e8)'
               appType: 'webApp'
-              appName: 'dotnetapp2024'
+              appName: 'webapp190'
               package: '$(Pipeline.Workspace)/drop/*.zip'
               deploymentMethod: 'auto'
 
