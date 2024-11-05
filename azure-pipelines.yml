@@ -44,7 +44,7 @@ stages:
               rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
               includeRootFolder: false
               archiveType: 'zip'
-              archiveFile: '$(Build.ArtifactStagingDirectory)'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/drop.zip'
 
 
           - task: PublishBuildArtifacts@1
